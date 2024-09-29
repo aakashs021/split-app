@@ -1,7 +1,7 @@
 import 'package:demo/presentation/widgets/home_page/freind_page_two_elevated_buttons.dart';
 import 'package:flutter/material.dart';
 
-Widget homePageNoUserFound() {
+Widget homePageNoUserFound({required BuildContext context}) {
   return Center(
     child: Column(
       children: [
@@ -13,7 +13,7 @@ Widget homePageNoUserFound() {
           style: TextStyle(fontSize: 18),
         ),
         const SizedBox(height: 100),
-        freindPageTwoElevatedButtons()
+        freindPageTwoElevatedButtons(context: context)
       ],
     ),
   );

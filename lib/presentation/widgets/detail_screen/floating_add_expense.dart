@@ -4,7 +4,7 @@ import 'package:demo/fonts.dart';
 import 'package:demo/model/user_model.dart';
 import 'package:demo/presentation/pages/add_expense_screen/add_expense.dart';
 
-Widget floatingAddExpense({UserModel? usermodel}) {
+Widget floatingAddExpense({required UserModel usermodel}) {
   return InkWell(
     onTap: () async {
       Get.to(() => AddExpense(

@@ -1,10 +1,13 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:demo/presentation/controllers/detail_screen/detail_total_controller_getx.dart';
 import 'package:demo/presentation/widgets/home_page/home_page_list.dart';
 import 'package:demo/presentation/widgets/home_page/home_page_no_user_found.dart';
 import 'package:demo/presentation/widgets/home_page/shimmer_home_page_for_stream.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:demo/presentation/controllers/login_page/new_user_login_controller.dart';
+import 'package:get/get.dart';
+import 'package:get/get_core/src/get_main.dart';
 
 var firebaseauth = FirebaseAuth.instance;
 
@@ -17,6 +20,7 @@ Widget homePageStreamBuilderFreinds() {
           .doc(firebaseauth.currentUser!.email)
           .snapshots(),
       builder: (context, snapshot) {
+       
         if (snapshot.connectionState == ConnectionState.waiting) {
           return shimmerHomePageforStream();
         } else if (snapshot.hasError) {
@@ -27,9 +31,10 @@ Widget homePageStreamBuilderFreinds() {
         List<dynamic>? emailList = data?['email'];
 
         if (emailList != null && emailList.isNotEmpty) {
+          
           return homePageList(emailList: emailList, context: context);
         } else {
-          return homePageNoUserFound();
+          return homePageNoUserFound(context: context);
         }
       },
     ),

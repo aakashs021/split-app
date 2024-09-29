@@ -4,8 +4,9 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_sign_in/google_sign_in.dart';
+import 'package:quickalert/quickalert.dart';
 
-Widget freindPageTwoElevatedButtons() {
+Widget freindPageTwoElevatedButtons({required BuildContext context}) {
   return Padding(
     padding: const EdgeInsets.symmetric(horizontal: 20.0),
     child: Row(
@@ -32,9 +33,29 @@ Widget freindPageTwoElevatedButtons() {
         Expanded(
           child: ElevatedButton(
             onPressed: () {
-              GoogleSignIn().signOut();
-              FirebaseAuth.instance.signOut();
-              Get.to(() => LoginPage());
+              QuickAlert.show(
+                context: context,
+                type: QuickAlertType.confirm,
+                text: 'Do you want to logout',
+                confirmBtnText: 'Yes',
+                cancelBtnText: 'No',
+                confirmBtnColor: Colors.white,
+                backgroundColor: Colors.black,
+                headerBackgroundColor: Colors.grey,
+                confirmBtnTextStyle: const TextStyle(
+                  color: Colors.black,
+                  fontWeight: FontWeight.bold,
+                ),
+                // barrierColor: Colors.white,
+                titleColor: Colors.white,
+                textColor: Colors.white,
+                onCancelBtnTap: () => Navigator.pop(context),
+                onConfirmBtnTap: () {
+                  GoogleSignIn().signOut();
+                  FirebaseAuth.instance.signOut();
+                  Get.to(() => LoginPage());
+                },
+              );
             },
             style: ElevatedButton.styleFrom(
               foregroundColor: Colors.white,

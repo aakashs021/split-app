@@ -5,7 +5,10 @@ import 'package:demo/presentation/widgets/home_page/home_list_page_owes.dart';
 import 'package:demo/presentation/widgets/home_page/shimmer_home_page_for_stream_money.dart';
 import 'package:flutter/material.dart';
 
-Widget homePageList({required emailList, required context}) {
+Widget homePageList({
+  required emailList,
+  required context,
+}) {
   return ListView(
     children: [
       ListView.builder(
@@ -31,7 +34,7 @@ Widget homePageList({required emailList, required context}) {
         },
       ),
       const SizedBox(height: 20),
-      freindPageTwoElevatedButtons()
+      freindPageTwoElevatedButtons(context: context)
     ],
   );
 }

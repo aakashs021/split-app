@@ -1,3 +1,4 @@
+import 'package:demo/presentation/pages/add_expense_screen/add_expense.dart';
 import 'package:demo/presentation/widgets/detail_screen/paid_by_string.dart';
 import 'package:demo/presentation/widgets/payment_detail.dart/payment_methode.dart';
 import 'package:flutter/material.dart';
@@ -7,13 +8,46 @@ import 'package:demo/model/user_model.dart';
 class PaymentDetail extends StatelessWidget {
   PaymentDetail(
       {super.key, required this.expenseModel, required this.userModel});
-final  UserModel userModel;
- final ExpenseModel expenseModel;
+  final UserModel userModel;
+  final ExpenseModel expenseModel;
 
   @override
   Widget build(BuildContext context) {
     print(expenseModel.paid);
     return Scaffold(
+      appBar: AppBar(
+        leading: IconButton(
+            onPressed: () {
+              Navigator.pop(context);
+            },
+            icon: Icon(
+              Icons.arrow_back_ios,
+              color: Colors.white,
+            )),
+        backgroundColor: Colors.green.shade400,
+        actions: [
+          TextButton.icon(
+              icon: Icon(
+                Icons.edit,
+                color: Colors.white,
+              ),
+              onPressed: () {
+                if (expenseModel.paid == 2) {
+                  expenseModel.amount *= 2;
+                }
+                Navigator.of(context).push(MaterialPageRoute(
+                  builder: (context) => AddExpense(
+                    usermodel: userModel,
+                    expenseModel: expenseModel,
+                  ),
+                ));
+              },
+              label: Text(
+                'Edit',
+                style: TextStyle(color: Colors.white, fontSize: 20),
+              ))
+        ],
+      ),
       body: SafeArea(
         child: Stack(
           children: [
@@ -24,7 +58,7 @@ final  UserModel userModel;
               // bottom: 10,
               child: Container(
                 color: Colors.green.shade400,
-                height: 250,
+                height: 230,
                 child: Center(
                   child: Text(
                     'Payment Summary',
@@ -41,7 +75,7 @@ final  UserModel userModel;
             // Main content section
             Container(
               margin: const EdgeInsets.only(
-                  top: 180, left: 20, right: 20, bottom: 100),
+                  top: 150, left: 20, right: 20, bottom: 100),
               padding: const EdgeInsets.all(20),
               decoration: BoxDecoration(
                 color: Colors.white,
@@ -62,28 +96,48 @@ final  UserModel userModel;
                       fontWeight: FontWeight.w500),
                   _textForPaymentPage('${expenseModel.description}'),
                   Divider(),
-
                   const SizedBox(height: 15),
-
                   _textForPaymentPage('Amount', fontWeight: FontWeight.w500),
                   _textForPaymentPage('\$${expenseModel.amount}'),
                   Divider(),
-
                   const SizedBox(height: 15),
-
                   _textForPaymentPage('Paid', fontWeight: FontWeight.w500),
                   _textForPaymentPage(padiByString(
                       paid: expenseModel.paid, name: '${userModel.name}')),
                   Divider(),
-
                   const Spacer(),
-
                   expenseModel.amount <= 0
                       ? Container(
                           width: double.infinity,
                           child: ElevatedButton(
                             onPressed: () async {
-                              paymentMethod(context: context, userModel: userModel, expenseModel: expenseModel, isDecline: false);
+                              showDialog(
+                                context: context,
+                                builder: (context) {
+                                  return AlertDialog(
+                                    title:
+                                        Text('Are you sure you want to Pay?'),
+                                    content: Text(
+                                        'It will be stored in payments as paid'),
+                                    actions: [
+                                      TextButton(
+                                          onPressed: () {
+                                            Navigator.pop(context);
+                                          },
+                                          child: Text('No')),
+                                      TextButton(
+                                          onPressed: () async {
+                                            await paymentMethod(
+                                                context: context,
+                                                userModel: userModel,
+                                                expenseModel: expenseModel,
+                                                isDecline: false);
+                                          },
+                                          child: Text('Yes'))
+                                    ],
+                                  );
+                                },
+                              );
                             },
                             style: ElevatedButton.styleFrom(
                               padding: const EdgeInsets.symmetric(
@@ -101,9 +155,34 @@ final  UserModel userModel;
                   Align(
                     alignment: Alignment.center,
                     child: TextButton(
-                        onPressed: () async {
-                          paymentMethod(context: context, userModel: userModel, expenseModel: expenseModel,
-                           isDecline: true);
+                        onPressed: () {
+                          showDialog(
+                            context: context,
+                            builder: (context) {
+                              return AlertDialog(
+                                title:
+                                    Text('Are you sure you want to decline?'),
+                                content: Text(
+                                    'It will be stored in payments as declined'),
+                                actions: [
+                                  TextButton(
+                                      onPressed: () {
+                                        Navigator.pop(context);
+                                      },
+                                      child: Text('No')),
+                                  TextButton(
+                                      onPressed: () async {
+                                        await paymentMethod(
+                                            context: context,
+                                            userModel: userModel,
+                                            expenseModel: expenseModel,
+                                            isDecline: true);
+                                      },
+                                      child: Text('Yes'))
+                                ],
+                              );
+                            },
+                          );
                         },
                         child: textForElevatedButtonPaymentPage(
                             data: 'Decline', color: Colors.red)),
@@ -116,11 +195,6 @@ final  UserModel userModel;
                 ],
               ),
             ),
-            IconButton(
-                onPressed: () {
-                  Navigator.pop(context);
-                },
-                icon: Icon(Icons.arrow_back_ios)),
           ],
         ),
       ),
@@ -159,4 +233,3 @@ Widget textForElevatedButtonPaymentPage(
         color: color),
   );
 }
-

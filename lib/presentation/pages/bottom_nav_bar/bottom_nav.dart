@@ -14,9 +14,9 @@ class BottomNav extends StatefulWidget {
 
 class _BottomNavState extends State<BottomNav> {
   List<Widget> screens = [
-     HomeScreenTabBar(),
+    HomeScreenTabBar(),
     const PaymentDoneScreen(),
-    const DeclineScreen()
+    // const DeclineScreen()
   ];
   int i = 0;
 
@@ -50,10 +50,10 @@ class _BottomNavState extends State<BottomNav> {
               icon: Icons.payments_rounded,
               text: 'Payment',
             ),
-            GButton(
-              icon: Icons.error_outline,
-              text: 'Decline',
-            )
+            // GButton(
+            //   icon: Icons.error_outline,
+            //   text: 'Decline',
+            // )
           ]),
     );
   }
