@@ -1,3 +1,4 @@
+import 'package:awesome_snackbar_content/awesome_snackbar_content.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:demo/model/user_model.dart';
 import 'package:demo/presentation/controllers/detail_screen/detail_total_controller_getx.dart';
@@ -126,14 +127,24 @@ Widget homePageListOwes({
                       .collection('friends') // Specify the collection
                       .doc(useremail) // The user's document ID
                       .update({
-                    'friendList': FieldValue.arrayRemove(
+                    'email': FieldValue.arrayRemove(
                         [userDetail.email]) // The field that contains the list
                   });
 
                   Navigator.pop(context); // Close the dialog
                   // Optionally show a snackbar or a message indicating success
+                  ScaffoldMessenger.of(context).clearSnackBars();
                   ScaffoldMessenger.of(context).showSnackBar(
-                    const SnackBar(content: Text('User deleted successfully')),
+                    const SnackBar(
+                      backgroundColor: Colors.white,
+                      content: AwesomeSnackbarContent(
+                        title: 'Friend removed!',
+                        message: 'User deleted successfully',
+
+                        /// change contentType to ContentType.success, ContentType.warning or ContentType.help for variants
+                        contentType: ContentType.failure,
+                      ),
+                    ),
                   );
                 },
                 child:
@@ -193,9 +204,9 @@ Widget homePageListOwes({
                   .snapshots(),
               builder: (context, snapshot) {
                 if (snapshot.connectionState == ConnectionState.waiting) {
-                  return const Text('0');
+                  return const Text('0.0');
                 } else if (snapshot.hasError) {
-                  return const Text('0');
+                  return const Text('0.0');
                 }
 
                 var total = snapshot.data?.data();

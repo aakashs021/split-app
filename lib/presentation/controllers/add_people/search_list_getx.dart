@@ -19,6 +19,10 @@ class SearchListGetx extends GetxController {
       }
     }
   }
+  onControllerClear(){
+    controller.clear();
+    update();
+  }
 
   onCircleAvatartap({
     required int index,

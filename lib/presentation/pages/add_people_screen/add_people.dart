@@ -10,7 +10,10 @@ import 'package:demo/presentation/widgets/add_people/no_user_found_peoplelist.da
 import 'package:demo/presentation/widgets/add_people/user_found_peoplelist.dart';
 
 class AddPeople extends StatelessWidget {
-  const AddPeople({super.key});
+  AddPeople({super.key});
+  var controller = Get.put(
+    SearchListGetx(),
+  );
 
   @override
   Widget build(BuildContext context) {
@@ -24,10 +27,23 @@ class AddPeople extends StatelessWidget {
         child: Column(
           children: [
             TextFormField(
+              controller: controller.controller,
               onChanged: (value) {
                 Get.find<SearchListGetx>().onSearchChanged(value);
               },
               decoration: InputDecoration(
+                  suffix: InkWell(
+                    onTap: () {
+                      controller.onControllerClear();
+                    },
+                    child: Icon(
+                      Icons.close,
+                      color: Colors.black,
+                    ),
+                  ),
+
+                  // suffix: IconButton(onPressed: (){
+                  // }, icon: Icon(Icons.close_outlined)),
                   hintText: 'Name',
                   border: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(20))),

@@ -15,7 +15,7 @@ Widget freindPageTwoElevatedButtons({required BuildContext context}) {
         Expanded(
           child: ElevatedButton(
             onPressed: () {
-              Get.to(() => const AddPeople());
+              Get.to(() =>  AddPeople());
             },
             style: ElevatedButton.styleFrom(
               foregroundColor: Colors.white,

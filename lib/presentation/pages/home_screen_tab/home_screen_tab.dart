@@ -1,4 +1,5 @@
 import 'package:demo/presentation/controllers/home_screen_tab_controller.dart/home_screen_tab_controller_getx.dart';
+import 'package:demo/presentation/pages/group_screen/group_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:demo/presentation/pages/home_page/home_screen.dart';
@@ -52,7 +53,7 @@ class HomeScreenTabBar extends StatelessWidget {
             index: tabControllerX.selectedIndex.value, // Switch between tabs
             children: const [
               HomeScreen(), // HomeScreen will not rebuild
-              Center(child: Text('Groups Tab')),
+              GroupScreen()
             ],
           )),
     );
