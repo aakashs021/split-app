@@ -34,10 +34,6 @@ Widget signinGoogleWidget({required BuildContext context}) {
           },
         );
 
-        // Wait for at least 1.5 seconds before proceeding
-        // await Future.delayed(Duration(milliseconds: 0));
-
-        // Perform Google Sign-In
         await googlesignin();
         var user = FirebaseAuth.instance.currentUser;
 

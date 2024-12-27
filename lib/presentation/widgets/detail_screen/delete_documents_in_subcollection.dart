@@ -1,7 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:demo/model/user_model.dart';
 import 'package:demo/presentation/controllers/login_page/new_user_login_controller.dart';
-import 'package:demo/presentation/pages/add_expense_screen/add_expense.dart';
 
 Future<void> deleteDocumentsInSubcollection({
   required String parentDocId,

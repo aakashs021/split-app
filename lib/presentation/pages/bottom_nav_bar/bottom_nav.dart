@@ -1,12 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:google_nav_bar/google_nav_bar.dart';
-import 'package:demo/presentation/pages/home_page/home_screen.dart';
 import 'package:demo/presentation/pages/home_screen_tab/home_screen_tab.dart';
-import 'package:demo/presentation/pages/payment_done_screen/decline_screen.dart';
 import 'package:demo/presentation/pages/payment_done_screen/payment_done-screen.dart';
 
 class BottomNav extends StatefulWidget {
-  BottomNav({super.key});
+  const BottomNav({super.key});
 
   @override
   State<BottomNav> createState() => _BottomNavState();

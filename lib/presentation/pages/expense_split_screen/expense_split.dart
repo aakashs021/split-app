@@ -3,7 +3,8 @@ import 'package:get/get.dart';
 import 'package:demo/presentation/controllers/expense_split/expense_split_getx.dart';
 
 class ExpenseSplit extends StatelessWidget {
-  const ExpenseSplit({super.key, required this.paid});
+  const ExpenseSplit({super.key, required this.paid,required this.name});
+  final String name;
   final String paid;
 
   @override
@@ -14,7 +15,7 @@ class ExpenseSplit extends StatelessWidget {
       ),
       body: Column(
         children: [
-          Text('With you and George'),
+          Text('With you and $name'),
           ListView.builder(
             shrinkWrap: true,
             itemCount: paidBy.length,
@@ -53,5 +54,6 @@ class ExpenseSplit extends StatelessWidget {
 const List<String> paidBy = [
   'Full amount paid by you',
   'Full amount paid by him',
-  'Split'
+  'Split (Total paid by yourself)',
+  'Split (Total paid by him)'
 ];

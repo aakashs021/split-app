@@ -1,9 +1,9 @@
 import 'package:demo/presentation/pages/add_expense_screen/add_expense.dart';
 import 'package:demo/presentation/widgets/detail_screen/paid_by_string.dart';
 import 'package:demo/presentation/widgets/payment_detail.dart/payment_methode.dart';
-import 'package:flutter/material.dart';
 import 'package:demo/model/expense_model.dart';
 import 'package:demo/model/user_model.dart';
+import 'package:flutter/material.dart';
 
 class PaymentDetail extends StatelessWidget {
   PaymentDetail(
@@ -127,6 +127,8 @@ class PaymentDetail extends StatelessWidget {
                                           child: Text('No')),
                                       TextButton(
                                           onPressed: () async {
+                                            Navigator.pop(context);
+                                            Navigator.pop(context);
                                             await paymentMethod(
                                                 context: context,
                                                 userModel: userModel,
@@ -172,6 +174,9 @@ class PaymentDetail extends StatelessWidget {
                                       child: Text('No')),
                                   TextButton(
                                       onPressed: () async {
+                                        Navigator.pop(context);
+                                        Navigator.pop(context);
+
                                         await paymentMethod(
                                             context: context,
                                             userModel: userModel,

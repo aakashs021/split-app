@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:demo/presentation/controllers/login_page/new_user_login_controller.dart';
 import 'package:demo/presentation/pages/add_expense_screen/add_expense.dart';
+import 'package:demo/presentation/pages/payment_done_screen/pd.dart';
 import 'package:flutter/material.dart';
 
 class PaymentDoneScreen extends StatelessWidget {
@@ -12,7 +13,7 @@ class PaymentDoneScreen extends StatelessWidget {
       appBar: AppBar(
         title: Text('Payments'),
       ),
-      body: SafeArea(child: paymentDoneStreamBuilder1()),
+      body: SafeArea(child: payment_history_details()),
     );
   }
 }
@@ -32,7 +33,7 @@ Widget paymentDoneStreamBuilder1() {
         return Center(child: Text('No data available.'));
       }
 
-      var data = snapshot.data!.data()! as Map<String, dynamic>;
+      var data = snapshot.data!.data()! ;
 
       // Group payments by date
       Map<String, List<Map<String, dynamic>>> groupedPayments = {};
@@ -54,6 +55,7 @@ Widget paymentDoneStreamBuilder1() {
       });
 
       List<String> dates = groupedPayments.keys.toList();
+      // print(dates);
 
       return ListView.builder(
         itemCount: dates.length,
@@ -79,6 +81,31 @@ Widget paymentDoneStreamBuilder1() {
                   var payment = payments[paymentIndex];
 
                   return ListTile(
+                    onLongPress: () {
+                      showDialog(
+                        context: context,
+                        builder: (context) {
+                          return AlertDialog(
+                            title: Text('data'),
+                            actions: [
+                              TextButton(
+                                  onPressed: () {
+                                    Navigator.pop(context);
+                                  },
+                                  child: Text('No')),
+                              TextButton(
+                                  onPressed: () {
+                                    firestore
+                                        .collection('payment')
+                                        .doc(useremail)
+                                        .update({});
+                                  },
+                                  child: Text('Yes')),
+                            ],
+                          );
+                        },
+                      );
+                    },
                     leading: paymentDoneStreamListTileCircleWidget(
                         status: payment['status']),
                     title: paymentDoneStreamListTileTitleWidget(

@@ -1,4 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:demo/services/auth_service.dart';
+import 'package:demo/services/database_service.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -15,24 +17,21 @@ newuserLogin(
     required String email,
     required String password}) async {
   try {
-    Map<String, dynamic> datamodel = {
-      'name': name,
-      'email': email,
-      'phone': phone
-    };
-    await FirebaseAuth.instance
-        .createUserWithEmailAndPassword(email: email, password: password);
     Get.find<SubmitButtonGetx>().onTap();
-    await firestore
-        .collection('users')
-        .doc(email)
-        .set(datamodel, SetOptions(merge: true));
-    Map<String, dynamic> newfreind = {'email': []};
+    DatabaseService().newUserLoginDetailStorage(
+        context: context,
+        name: name,
+        phone: phone,
+        email: email,
+        password: password);
+    await AuthService().newUserLoginAuth(
+        context: context,
+        name: name,
+        phone: phone,
+        email: email,
+        password: password);
 
-    await firestore
-        .collection('friends')
-        .doc(email)
-        .set(newfreind, SetOptions(merge: true));
+
     Get.to(() => LoginPage());
     Get.delete<SubmitButtonGetx>();
   } on FirebaseAuthException catch (e) {

@@ -1,12 +1,9 @@
 import 'package:demo/model/expense_model.dart';
 import 'package:demo/model/user_model.dart';
-import 'package:demo/presentation/controllers/detail_screen/detail_total_controller_getx.dart';
 import 'package:demo/presentation/controllers/login_page/new_user_login_controller.dart';
 import 'package:demo/presentation/widgets/detail_screen/inner_detail_widget.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
-import 'package:get/get_core/src/get_main.dart';
 import 'package:lottie/lottie.dart';
 
 Widget detailPageStreamBuilder({required UserModel usermodel}) {

@@ -14,8 +14,8 @@ String useremail = FirebaseAuth.instance.currentUser!.email!;
 
 class AddExpense extends StatefulWidget {
   AddExpense({super.key, required this.usermodel, this.expenseModel});
-  UserModel usermodel;
-  ExpenseModel? expenseModel;
+ final UserModel usermodel;
+ final ExpenseModel? expenseModel;
 
   @override
   State<AddExpense> createState() => _AddExpenseState();
@@ -41,11 +41,9 @@ class _AddExpenseState extends State<AddExpense> {
 
   @override
   Widget build(BuildContext context) {
-    print(widget.usermodel?.name);
     return Scaffold(
         appBar: AppBar(
           title: const Text('Add expense'),
-          // actions: [IconButton(onPressed: () {}, icon: const Icon(Icons.add))],
         ),
         body: SingleChildScrollView(
           child: Column(
@@ -53,15 +51,7 @@ class _AddExpenseState extends State<AddExpense> {
               const SizedBox(
                 height: 100,
               ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  const Text('You  with  '),
-                  widget.usermodel != null
-                      ? Text(widget.usermodel!.name)
-                      : const Text('no')
-                ],
-              ),
+              Text('You with ${widget.usermodel.name}'),
               SizedBox(
                 height: 100,
               ),
@@ -109,10 +99,14 @@ class _AddExpenseState extends State<AddExpense> {
                       style: ElevatedButton.styleFrom(
                           backgroundColor: Colors.blue.shade300,
                           foregroundColor: Colors.white,
-                          fixedSize: Size.fromWidth(200)),
+                          fixedSize: Size.fromWidth(250)),
                       onPressed: () {
                         Get.to(
-                            () => ExpenseSplit(paid: paidBy[controller.index]));
+                          () => ExpenseSplit(
+                            paid: paidBy[controller.index],
+                            name: widget.usermodel.name,
+                          ),
+                        );
                       },
                       child: Text(paidBy[controller.index]));
                 },
@@ -165,6 +159,10 @@ Widget AddExpenseSubmitButton(
             num? amount = num.tryParse(amountcontroller.text);
             if (amount == null) {
               _showSnackBar(context, 'Please enter a valid numeric amount!');
+              return;
+            }
+            if(amount<=0){
+              _showSnackBar(context, 'Please enter a correct value');
               return;
             }
             String text = isedit
@@ -227,15 +225,17 @@ expenseAddToFirebase(
       ? expenseModel.dateTime.microsecondsSinceEpoch.toString()
       : dateTime;
 
-  int demo = Get.find<ExpenseSplitGetx>().index;
-  if (demo == 2) {
+  int paid = Get.find<ExpenseSplitGetx>().index;
+  if (paid == 2) {
     amount = amount / 2;
-  } else if (demo == 1) {
+  } else if (paid == 1) {
     amount = -amount;
+  } else if (paid == 3) {
+    amount = amount / 2 * -1;
   }
 
   Map<String, dynamic> data = {
-    'paid': demo,
+    'paid': paid,
     'des': descriptioncontroller.text,
     'amount': amount,
   };
@@ -272,10 +272,17 @@ expenseAddToFirebase(
             true), // Merges with existing data, or creates if it doesn't exist
   );
   // Adjust amount and save for friend
-  int frienddemo = (demo == 2) ? 2 : (demo == 0 ? 1 : 0);
+  int friendpaid = 1;
+  if (paid == 3) {
+    friendpaid = 2;
+  } else if (paid == 2) {
+    friendpaid = 3;
+  } else if (paid == 1) {
+    friendpaid = 0;
+  }
   amount = -amount; // Flip amount for the friend
   data['amount'] = amount;
-  data['paid'] = frienddemo;
+  data['paid'] = friendpaid;
   // var secondUser = firestore
   //     .collection('expense')
   //     .doc(usermodel.email)

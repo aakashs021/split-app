@@ -3,7 +3,6 @@ import 'package:demo/presentation/widgets/home_page/friend_page_stream_builder.d
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:demo/presentation/pages/bottom_nav_bar/bottom_nav.dart';
-import 'package:demo/presentation/pages/home_page/home_screen.dart';
 import 'package:demo/presentation/widgets/login_page/loginpage_snackbar.dart';
 
 userLogin(

@@ -1,4 +1,3 @@
-import 'package:demo/presentation/pages/add_expense_screen/add_expense.dart';
 import 'package:demo/presentation/widgets/home_page/friend_page_stream_builder.dart';
 import 'package:demo/presentation/widgets/login_page/login_bottom_text.dart';
 import 'package:demo/presentation/widgets/login_page/sign_in_google_widget.dart';
@@ -6,6 +5,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_sign_in/google_sign_in.dart';
+import 'package:demo/presentation/pages/add_expense_screen/add_expense.dart';
 import 'package:demo/presentation/controllers/login_page/validation_functions_controller.dart';
 import 'package:demo/presentation/controllers/login_page/visibility_getx.dart';
 import 'package:demo/presentation/widgets/login_page/login_button.dart';

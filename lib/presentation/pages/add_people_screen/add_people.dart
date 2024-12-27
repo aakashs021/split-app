@@ -2,8 +2,8 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:demo/model/user_model.dart';
 import 'package:demo/presentation/controllers/add_people/search_list_getx.dart';
+import 'package:demo/model/user_model.dart';
 import 'package:demo/presentation/controllers/login_page/new_user_login_controller.dart';
 import 'package:demo/presentation/widgets/add_people/loading_state_peoplelist.dart';
 import 'package:demo/presentation/widgets/add_people/no_user_found_peoplelist.dart';
@@ -11,7 +11,7 @@ import 'package:demo/presentation/widgets/add_people/user_found_peoplelist.dart'
 
 class AddPeople extends StatelessWidget {
   AddPeople({super.key});
-  var controller = Get.put(
+ final  controller = Get.put(
     SearchListGetx(),
   );
 
@@ -41,9 +41,6 @@ class AddPeople extends StatelessWidget {
                       color: Colors.black,
                     ),
                   ),
-
-                  // suffix: IconButton(onPressed: (){
-                  // }, icon: Icon(Icons.close_outlined)),
                   hintText: 'Name',
                   border: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(20))),

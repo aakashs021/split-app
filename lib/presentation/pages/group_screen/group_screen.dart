@@ -12,27 +12,30 @@ class GroupScreen extends StatelessWidget {
       body: Center(child: Column(
         children: [
           ElevatedButton(onPressed: (){
-          realtime_databse_get();
+          realtimedatabseget();
           }, child: Text('show')), 
           ElevatedButton(onPressed: (){
-          realtime_database_add();
+          realtimedatabaseadd();
           }, child: Text('add')),
         ],
       ),),
+      floatingActionButton: FloatingActionButton(onPressed: (){},
+      child: Icon(Icons.group_add_outlined),
+      ),
 
     );
   }
 }
 final databaseReference = FirebaseDatabase.instance.ref();
 
-realtime_databse_get(){
+realtimedatabseget(){
   databaseReference.child('users').child('user2').onValue.listen((event) {
       Map<dynamic, dynamic> data = event.snapshot.value as Map<dynamic, dynamic>;
         print(data); // Print the entire data structure
   },);
 }
 
-realtime_database_add(){
+realtimedatabaseadd(){
   databaseReference.child('users').child('user2').set({
   'name': 'Alice',
   'age': 30,

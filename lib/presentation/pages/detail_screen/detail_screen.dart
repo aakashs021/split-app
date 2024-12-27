@@ -1,10 +1,8 @@
-import 'package:demo/presentation/controllers/detail_screen/detail_total_controller_getx.dart';
+import 'package:demo/model/user_model.dart';
 import 'package:demo/presentation/widgets/detail_screen/detail_page_appbar_bottom.dart';
 import 'package:demo/presentation/widgets/detail_screen/detail_page_stream_builder.dart';
 import 'package:flutter/material.dart';
-import 'package:demo/model/user_model.dart';
 import 'package:demo/presentation/widgets/detail_screen/floating_add_expense.dart';
-import 'package:get/get.dart';
 
 class DetailScreen extends StatelessWidget {
   const DetailScreen({super.key, required this.user,});

@@ -1,7 +1,7 @@
 import 'package:demo/model/expense_model.dart';
 import 'package:demo/model/user_model.dart';
-import 'package:demo/presentation/pages/payment_detail_screen/payment_detail.dart';
 import 'package:demo/presentation/widgets/detail_screen/amount_text.dart';
+import 'package:demo/presentation/pages/payment_detail_screen/payment_detail.dart';
 import 'package:demo/presentation/widgets/detail_screen/paid_by_text_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';

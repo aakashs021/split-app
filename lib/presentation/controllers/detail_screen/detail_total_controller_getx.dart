@@ -26,10 +26,8 @@ class DetailTotalControllerGetx extends GetxController {
       } else {
         total = 0; // Default value if document or data is missing
       }
-      print(total);
       return total;
     } catch (e) {
-      print("Error fetching total: $e");
       total = 0; // Handle error case
       return total;
     }

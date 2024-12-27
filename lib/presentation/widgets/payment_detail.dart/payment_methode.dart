@@ -4,7 +4,6 @@ import 'package:demo/model/user_model.dart';
 import 'package:demo/presentation/controllers/login_page/new_user_login_controller.dart';
 import 'package:demo/presentation/pages/add_expense_screen/add_expense.dart';
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
 
 paymentMethod({
   required BuildContext context,
@@ -14,7 +13,6 @@ paymentMethod({
 }) async {
   print('started');
   String date = expenseModel.dateTime.microsecondsSinceEpoch.toString();
-  Navigator.pop(context);
 
   var firstCollectionSnapshot = await firestore
       .collection('expense')
@@ -65,6 +63,7 @@ paymentMethod({
   int intDate = int.parse(date);
 
   // Map for payment data
+  String currentDate = DateTime.now().microsecondsSinceEpoch.toString();
   Map payemtMapUser1 = {
     'amount': expenseModel.amount,
     'paid': expenseModel.paid,
@@ -73,10 +72,10 @@ paymentMethod({
     'email': userModel.email,
     'status': !isDecline, // Set status based on isDecline
     'by': useremail,
+    'donedate':currentDate
   };
 
   // Current date for tracking payment updates
-  String currentDate = DateTime.now().microsecondsSinceEpoch.toString();
 
   // Update payment records in both users' documents
   firestore.collection('payment').doc(useremail).set({
